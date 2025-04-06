@@ -239,11 +239,13 @@ export const login = catchAsyncError(async (req, res, next) => {
 
 export const logout = catchAsyncError(async (req, res, next) => {
   res
-    .status(200)
-    .cookie("token", "", {
-      expires: new Date(Date.now()),
+    .clearCookie("token", {
       httpOnly: true,
+      secure: true,          // important if using HTTPS (Render likely is)
+      sameSite: "None",      // or "Lax" depending on your setup
+      path: "/",             // make sure it matches the path where it was set
     })
+    .status(200)
     .json({
       success: true,
       message: "Logged out successfully.",
