@@ -9,6 +9,7 @@ export const sendToken = (user, statusCode, message, res) => {
       httpOnly: true,
       secure: true,  // Set to true if using HTTPS
       sameSite: "None", // Required for cross-origin cookies
+      path: "/",
     })
     .json({
       success: true,
